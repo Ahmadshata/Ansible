@@ -1,0 +1,26 @@
+- name: my first play
+  hosts: myservers
+  gather_facts: false
+  tasks:
+  - name: update cache
+    apt:
+     update_cache: true
+
+  - name: install nginx
+    apt:
+     name: nginx
+     state: latest
+
+  - name: copy index
+    copy:
+      src: ./index.html
+      dest: /var/www/html/index.html
+
+  - name: restart nginx
+    service:
+      name: nginx
+      state: restarted
+      use: sysvini  
+
+
+
