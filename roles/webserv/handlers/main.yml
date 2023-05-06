@@ -1,0 +1,18 @@
+- name: template_handler
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+  notify: copy_handler
+
+- name: copy_handler
+  copy:
+    src: "{{ item }}"
+    dest: /var/www/html/
+  loop: "{{ files }}"
+  notify: restart_handler
+
+- name: restart_handler
+  service:
+    name: "{{ package }}"
+    state: restarted
+    use: sysvini

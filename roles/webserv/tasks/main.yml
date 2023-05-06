@@ -1,0 +1,5 @@
+- name: install
+  apt:
+    name: "{{ package }}"
+    state: latest
+  notify: template_handler
